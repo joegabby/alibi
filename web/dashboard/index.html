@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Alibi</title>
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- jsPDF + AutoTable CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div style="width: 100%">
+            <div class="author-box">
+              <img width="150px"  src="../../cli/assets/brand/alibi-lockup.svg" alt="alibi logo">
+              <i class="small no-margin">Built By: Weeggo</i>
+            </div>
+          </div>
+          <div
+            title="Click to toggle"
+            class="toggle-sidebar toggleSidebar"
+            id="toggleSidebar"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 12L6 8L10 4"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="projects-list" id="projectsList">
+          <div class="loading">Loading projects...</div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="container" id="app">
+          <header>
+            <div class="top-header">
+              <div class="date-badge">
+                <div>
+                  <div class="date-title" id="dateHeader">Activity Viewer</div>
+                  <div class="small" id="dateSub">
+                    Select a project to view activities
+                  </div>
+                </div>
+              </div>
+
+              <div class="controls">
+                <button class="btn" id="expandAll">Expand all</button>
+                <button class="btn" id="collapseAll">Collapse all</button>
+                <button class="btn" id="downloadPdf">Download PDF</button>
+              </div>
+            </div>
+
+            <div class="filter-row">
+              <div>
+                <label class="small"
+                  >From: <input type="date" class="dateRange" id="fromDate"
+                /></label>
+                <label class="small"
+                  >To: <input type="date" class="dateRange" id="toDate"
+                /></label>
+                <label class="small">
+                  Action Type:
+                  <select id="actionType" class="options-select">
+                    <option value="all" selected>All</option>
+                    <option value="commit">Commit</option>
+                    <option value="push">Push</option>
+                  </select>
+                </label>
+                <button class="btn" id="clearFilter">Clear Filter</button>
+              </div>
+
+              <div class="pagination">
+                <label class="small"
+                  >Per page:
+                  <select id="pageSize" class="options-select">
+                    <option value="3">3</option>
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                  </select>
+                </label>
+                <button class="btn" id="prevPage">Prev</button>
+                <div class="small" id="pageIndicator">Page 1</div>
+                <button class="btn" id="nextPage">Next</button>
+              </div>
+            </div>
+          </header>
+
+          <main>
+            <div class="grid" id="activitiesGrid">
+              <div class="empty">
+                Select a project from the sidebar to view activities
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

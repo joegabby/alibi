@@ -1,0 +1,48 @@
+# ======================================================================
+#  Alibi Configuration File
+#  This file helps you configure project tracking for Alibi.
+# ======================================================================
+
+# -------------------- Project Information --------------------
+# The section below is usually filled automatically by Alibi.
+# Avoid updating values in this section.
+
+project:
+  name: "my_project" # The name of your project
+  owner: "you@example.com" # Your Git author email (must match GitHub)
+  source: "/path/to/your/codebase" # Absolute path to your local project directory
+  data: "/path/to/alibi/data/for/the/project" # Absolute path to local project data 
+
+# -------------------- Tracking Configuration --------------------
+# This section defines how and what Alibi should track from your Git repo.
+
+tracking:
+  repo: "https://git-repo-host/username/my-project.git" # Your Git repository URL
+  remote: "origin" # The remote name (e.g., origin)
+  branch: "main" # The branch you actively work on (e.g., main or master)
+
+  # Include Patterns
+  # Define the file types or extensions to track.
+  # Use wildcards like "*.js", "*.go", "*.py", etc.
+  # Example: To track JavaScript and Go files, use:
+  #   - "*.js"
+  #   - "*.go"
+  include: # specify the path or file extensions to be tracked
+    - "*"
+  exclude: # specify the path or file extensions not to be tracked
+    - ".git/**"
+    - "node_modules/**"
+    - "vendor/**"
+    - "dist/**"
+    - "build/**"
+# -------------------- Notes --------------------
+# 💡 Tips:
+# - Ensure your Git user email matches the "owner" field above.
+# - Run `alibi ping` to test configurations in this config file.
+# - Run `alibi serve` to view project activities in your browser.
+
+AIProviders: 
+  OpenAI: ""
+  DeepSeek: ""
+  OpenRouter: ""
+  HuggingFace: ""

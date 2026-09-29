@@ -1,0 +1,11 @@
+alibi
+/.alibi
+/git
+alibi.exe
+alibi*.yml
+/bin
+.env
+/dashboard
+.kilo
+/installer
+/dist

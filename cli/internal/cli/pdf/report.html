@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Developer Activity Report</title>
+    <link rel="icon" href="../../../assets/brand/alibi-favicon.svg" />
+
+    <!--
+      DESIGN MOCKUP — not the live template.
+
+      Nothing embeds or reads this file. The report that actually ships is built
+      as a Go format string in RenderReport (renderView.go). Open this in a
+      browser to iterate on the design, then port the change across.
+    -->
+
+    <style>
+      /* PDF-safe reset */
+      * {
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 32px;
+        background: #ffffff;
+        color: #111827;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 8px;
+        font-weight: 600;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin-top: 24px;
+      }
+
+      h3 {
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .muted {
+        color: #6b7280;
+      }
+
+      /* Brand */
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 14px;
+      }
+
+      .brand-mark {
+        width: 26px;
+        height: 26px;
+        display: block;
+        color: #16181d;
+      }
+
+      .brand-word {
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino,
+          "Book Antiqua", Georgia, serif;
+        font-size: 15px;
+        letter-spacing: 0.19em;
+        line-height: 1;
+        color: #16181d;
+      }
+
+      /* Header */
+      .header {
+        border-bottom: 2px solid #e5e7eb;
+        padding-top: 8px;
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+      }
+
+      .date-range {
+        margin-top: 4px;
+        font-size: 13px;
+      }
+
+      /* Stats grid */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+
+      .stat {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: #6b7280;
+      }
+
+      /* Activity list */
+      .activity {
+        margin-bottom: 16px;
+        border-left: 4px solid transparent;
+        padding: 12px 16px;
+        border-radius: 4px;
+      }
+
+      /* Commit styling */
+      .commit {
+        background: #f0fdf4;
+        border-left-color: #22c55e;
+      }
+
+      /* Push styling */
+      .push {
+        background: #eff6ff;
+        border-left-color: #3b82f6;
+      }
+
+      .activity-header {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+
+      .activity-meta-summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+      }
+
+      .activity-meta-summary .id {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 14px;
+      }
+
+      /* Commit styling */
+      .commit-summary {
+        background: #f0fdf4;
+        border-left-color: #22c55e;
+      }
+
+      /* Push styling */
+      .push-summary {
+        background: #eff6ff;
+        border-left-color: #3b82f6;
+      }
+
+      .badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 999px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+      }
+
+      .badge-commit {
+        background: #16a34a;
+      }
+
+      .badge-push {
+        background: #2563eb;
+      }
+
+      .summary {
+        margin-top: 6px;
+        padding-left: 16px;
+      }
+
+      .summary ul {
+        margin: 4px 0 0;
+        padding-left: 16px;
+      }
+
+      .summary li {
+        margin-bottom: 4px;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 40px;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 12px;
+        font-size: 10px;
+        color: #6b7280;
+        text-align: center;
+      }
+
+      /* Page breaks */
+      .page-break {
+        page-break-before: always;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" role="img" aria-label="Alibi">
+          <g stroke="currentColor" stroke-width="4.5" stroke-linecap="round">
+            <path d="M28.9 19.3 15.2 46.6" />
+            <path d="M35.1 19.3 48.8 46.6" />
+            <path d="M20 37h24" />
+          </g>
+          <circle cx="20" cy="37" r="2.8" fill="currentColor" />
+          <circle cx="44" cy="37" r="2.8" fill="currentColor" />
+          <circle cx="13" cy="51" r="3.4" stroke="currentColor" stroke-width="2.4" />
+          <circle cx="51" cy="51" r="3.4" stroke="currentColor" stroke-width="2.4" />
+          <circle cx="32" cy="13" r="5.5" fill="#c8912f" />
+        </svg>
+        <span class="brand-word">ALIBI</span>
+      </div>
+      <h1>Developer Activity Report</h1>
+      <div class="date-range muted">
+        Report Period: <strong>2025-12-01</strong> –
+        <strong>2025-12-30</strong>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">5</div>
+        <div class="stat-label">Commits</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Pushes</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-value">8</div>
+        <div class="stat-label">Files Modified</div>
+      </div>
+    </div>
+
+    <!-- ACTIVITIES -->
+    <div class="activity commit-summary">
+      <div class="activity-header">
+        <span class="badge badge-commit">COMMIT</span>
+        <div class="activity-meta-summary msg">
+          <span>2025-12-28 14:00</span> | <span>3 files</span> |
+          <span>12 functions</span>
+        </div>
+      </div>
+
+      <div class="activity-meta-summary">
+        <h3 class="msg">Fix login bug</h3>
+        <span class="id">abc123</span>
+      </div>
+
+      <div class="summary">
+        <ul>
+          <li>
+            <div>
+              <h3>Modified src/login.js</h3>
+              <ul>
+                <li class="fn-line">
+                  updated validateUser (10 lines, 2 lines)
+                </li>
+                <li class="fn-line">
+                  added checkCredentials (5 lines, 0 lines)
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Added src/auth.js</h3>
+              <ul>
+                <li class="fn-line">added loginUser (15 lines, 0 lines)</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity push-summary">
+      <div class="activity-header">
+        <span class="badge badge-push">PUSH</span>
+        <div class="activity-meta-summary msg">
+          <span>2025-12-29 09:30</span> |
+          <span>2 commits</span>
+        </div>
+      </div>
+
+      <div class="summary">
+        <ul>
+          <li>
+            <span class="activity-meta-summary">
+              <h3 class="msg">Add README file</h3>
+              <span class="id">def456</span>
+            </span>
+          </li>
+          <li>
+            <span class="activity-meta-summary">
+              <h3 class="msg">Update package.json</h3>
+              <span class="id">ghi789</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
